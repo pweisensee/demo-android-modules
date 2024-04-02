@@ -2,13 +2,20 @@
 
 This project demonstrates how to integrate Android native modules into an Expo React Native app.
 
+The main issue centers on integrating a third party `.AAR` Android library file into an [Expo Build (CNG)](https://docs.expo.dev/workflow/continuous-native-generation/)
+
+- [See reference Android project here](https://github.com/datacapsystems/DSIEMVAndroidDemo/tree/development)
+
+- [Docs for Expo instructions](https://docs.expo.dev/modules/third-party-library/)
+
 ## Prerequisites
 
 Before getting started, make sure you have the following installed on your machine:
 
--   Node.js
--   Expo CLI
--   Android Studio
+- Node.js (v18.20.0+)
+- Expo CLI (v6.3.10+)
+- EAS CLI (v7.6.2+)
+- Android Studio
 
 ## Getting Started
 
@@ -16,60 +23,55 @@ Follow these steps to create and run the project:
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/your-username/demo-android-modules.git
-    ```
+   ```bash
+   git clone https://github.com/your-username/demo-android-modules.git
+   ```
 
 2. Navigate to the project directory:
 
-    ```bash
-    cd demo-android-modules
-    ```
+   ```bash
+   cd demo-android-modules
+   ```
 
 3. Install dependencies:
 
-    ```bash
-    yarn install
-    ```
+   ```bash
+   yarn install
+   ```
 
-4. Create a new Expo project:
+4. Build and run the Android app:
 
-    ```bash
-    expo init MyDemoApp
-    ```
+   ```bash
+   yarn android
+   ```
 
-5. Choose the "blank" template when prompted.
+5. (optional) Open the `android` directory in Android Studio.
 
-6. Copy the contents of the `demo-android-modules` directory into the `MyDemoApp` directory, overwriting any existing files.
+6. Build and run the project using the Android emulator or a physical device.
 
-7. Install additional dependencies:
+## Demo Initialization Steps
 
-    ```bash
-    cd MyDemoApp
-    yarn install
-    ```
+1. `yarn create expo-app -t expo-template-blank-typescript`
 
-8. Open the `android` directory in Android Studio.
+2. Test build works using `npx expo run:android --no-build-cache`
 
-9. Build and run the project using the Android emulator or a physical device.
+3. create a local native module: `npx create-expo-module --local demo-datacap`
 
-## Usage
+4. Import the native module to run consume it in `App.tsx`
 
-To use the Android native modules in your Expo React Native app, follow these steps:
+5. Run `npx expo run:android --no-build-cache` and verify app is working with native integration
 
-1. Import the module in your JavaScript code:
+6. Run `npx create-expo-module --local demo-datacap`
 
-    ```javascript
-    import { NativeModule } from 'react-native';
-    ```
+   - `.aar` file located at: `demo-android-modules/modules/demo-datacap/android/libs/DSIEMVAndroid.aar`
+   - Create a Kotlin wrapper around the `android/libs/DSIEMVAndroid.aar` library file
+   - This build.gradle and `expo-module.config.json` setup does not appear to work when running `npx expo run:android --no-build-cache`
 
-2. Use the module in your app:
+7. Run `npx create-expo-module --local dsiEMVAndroid`
 
-    ```javascript
-    NativeModule.doSomething();
-    ```
-
-    Replace `doSomething()` with the actual method provided by the native module.
+   - `.aar` file located at: `demo-android-modules/modules/dsiEMVAndroid/android/libs/DSIEMVAndroid.aar`
+   - Create Expo Module to directly import `android/libs/DSIEMVAndroid.aar` library file
+   - This build.gradle and `expo-module.config.json` setup does not appear to work when running `npx expo run:android --no-build-cache`
 
 ## Contributing
 
@@ -77,4 +79,4 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project has no license for use other than debugging build issues.
