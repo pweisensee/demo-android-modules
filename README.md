@@ -67,12 +67,6 @@ Follow these steps to create and run the project:
    - Create a Kotlin wrapper around the `android/libs/DSIEMVAndroid.aar` library file
    - This build.gradle and `expo-module.config.json` setup does not appear to work when running `npx expo run:android --no-build-cache`
 
-7. Run `npx create-expo-module --local dsiEMVAndroid`
-
-   - `.aar` file located at: `demo-android-modules/modules/dsiEMVAndroid/android/libs/DSIEMVAndroid.aar`
-   - Create Expo Module to directly import `android/libs/DSIEMVAndroid.aar` library file
-   - This build.gradle and `expo-module.config.json` setup does not appear to work when running `npx expo run:android --no-build-cache`
-
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
@@ -80,3 +74,29 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## License
 
 This project has no license for use other than debugging build issues.
+
+## Bugs
+
+### Issue 1
+
+Development build (`npm run android`) succeeds but fails when running the native code using the example button
+
+Error:
+
+```
+JNI DETECTED ERROR IN APPLICATION: JNI GetObjectRefType called with pending exception expo.modules.kotlin.exception.MissingTypeConverter: Cannot find type converter for '(kotlin.String) -> kotlin.Any'.
+
+java_vm_ext.cc:591]   at expo.modules.kotlin.types.TypeConverter expo.modules.kotlin.types.TypeConverterProviderImpl.obtainTypeConverter(kotlin.reflect.KType)
+```
+
+### Issue 2
+
+Production build (`npm run build:production:android`) does not work
+
+```
+[RUN_GRADLEW] FAILURE: Build failed with an exception.
+[RUN_GRADLEW] * What went wrong:
+[RUN_GRADLEW] Execution failed for task ':demo-datacap:bundleReleaseLocalLintAar'.
+[RUN_GRADLEW] > Error while evaluating property 'hasLocalAarDeps' of task ':demo-datacap:bundleReleaseLocalLintAar'.
+[RUN_GRADLEW]    > Direct local .aar file dependencies are not supported when building an AAR. The resulting AAR would be broken because the classes and Android resources from any local .aar file dependencies would not be packaged in the resulting AAR. Previous versions of the Android Gradle Plugin produce broken AARs in this case too (despite not throwing this error). The following direct local .aar file dependencies of the :demo-datacap project caused this error:
+```

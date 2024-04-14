@@ -1,26 +1,24 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
-import { hello, processTransaction } from './modules/demo-datacap';
-// Uncomment the following line to import and test the wrapper module
-// import dsiEMVAndroid from './modules/dsiEMVAndroid';
+import { useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ProcessTransaction } from './modules/demo-datacap';
 
 export default function App() {
+  const [result, setResult] = useState<string | null>(null);
+
   return (
     <View style={styles.container}>
       <Text>App.tsx</Text>
       <Text>Android demo launched</Text>
-      {/* Uncomment the following line to import and test the wrapper module */}
-      {/* <TouchableOpacity
-        style={styles.button}
-        onPress={() =>
-          Alert.alert('Result', dsiEMVAndroid.ProcessTransaction('<xml>sample-data</xml>'))
-        }
-      >
-        <Text style={styles.buttonText}>Run Native Module</Text>
-      </TouchableOpacity> */}
+
+      {result === null ? null : (
+        <Text style={styles.text}>
+          Result: {`${typeof result === 'string' ? result : typeof result}`}
+        </Text>
+      )}
+
       <TouchableOpacity
         style={styles.button}
-        onPress={() => Alert.alert('Result', processTransaction('<xml>sample-data</xml>'))}
+        onPress={() => ProcessTransaction('<xml>sample-data</xml>', setResult)}
       >
         <Text style={styles.buttonText}>Run Demo Module</Text>
       </TouchableOpacity>
@@ -36,5 +34,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'space-evenly',
+  },
+  text: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#d3e',
+    fontWeight: 'bold',
   },
 });

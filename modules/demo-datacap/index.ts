@@ -3,8 +3,9 @@ import DemoDatacapModule from './src/DemoDatacapModule';
 
 type ProcessTransaction = (xmlString: string) => string;
 
-export function hello(): string {
-  return DemoDatacapModule.hello();
+export function ProcessTransaction(
+  xmlString: string,
+  onResponse: (response: string) => void
+): string {
+  return DemoDatacapModule.ProcessTransaction(xmlString, onResponse);
 }
-
-export const processTransaction = DemoDatacapModule.ProcessTransaction as ProcessTransaction;

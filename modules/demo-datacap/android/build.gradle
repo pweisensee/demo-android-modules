@@ -91,10 +91,13 @@ repositories {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.aar'])
+  implementation 'androidx.appcompat:appcompat:1.6.1'
+  implementation 'androidx.room:room-common:2.6.1'
   implementation project(':expo-modules-core')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
-  // Error: Could not find com.datacap.android:dsiEMVAndroid:
-  // implementation 'com.datacap.android:dsiEMVAndroid@aar'
-  // implementation files('libs\\DSIEMVAndroid.aar')
-  implementation files('./libs/DSIEMVAndroid.aar')
+  implementation files('libs/DSIEMVAndroid.aar')
+  // implementation 'com.datacap.android:dsiEMVAndroid:1.63@aar'
+  // implementation (name: 'dsiEMVAndroid', ext: 'aar')
+  // implementation 'com.datacap.device_connection:dsiEMVAndroid@aar'
+  // implementation 'com.datacap.android:dsiEMVAndroid:v3.1.0@aar'
 }
